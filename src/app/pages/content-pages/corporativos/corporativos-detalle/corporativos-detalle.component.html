@@ -1,0 +1,191 @@
+<section class="users-edit">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <!-- Nav-tabs -->
+                        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
+                            <li [ngbNavItem]="1">
+                                <a ngbNavLink class="nav-link d-flex align-items-center">
+                                    <i class="mr-1 ft-file"></i>
+                                    <span class="d-none d-sm-block">Datos Generales</span>
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <!-- Account content starts -->
+                                    <div class="mt-2" id="account">
+                                        <!-- Media object starts -->
+                                        <div class="media d-flex align-items-center pb-0">
+                                            <img [src]="corporativoDetalle.logo" alt="user edit avatar" class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64"/>
+                                            <h4 class="m-0"> {{ corporativoDetalle.corto }} </h4>
+                                        </div>
+                                        <hr class="mb-2" />
+                                        <!-- Media object ends -->
+
+                                        <!-- Account form starts -->
+                                        <form novalidate [formGroup]="detalleCorporativoForm" (ngSubmit)="onSubmit()">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-12 col-md-3">
+                                                            <div class="controls">
+                                                                <label for="users-edit-username">Nombre Corto</label>
+                                                                <input type="text" id="users-edit-username" class="form-control" placeholder="Username" formControlName="corto"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-12 col-md-6">
+                                                            <div class="controls">
+                                                                <label for="users-edit-name">Nombre Completo</label>
+                                                                <input type="text" id="users-edit-name" class="form-control" placeholder="Name" formControlName="completo"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-12 col-md-3">
+                                                            <div class="controls">
+                                                                <label for="users-edit-role">Status
+                                                                    <sup>*</sup></label>
+                                                                <select id="users-edit-role" class="form-control" formControlName="status">
+                                                                    <option value="1">Activo</option>
+                                                                    <option value="0">Inactivo</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-12 col-md-3">
+                                                            <div class="controls">
+                                                                <label for="users-edit-status">Fecha de Incorporación
+                                                                    <sup>*</sup></label>
+                                                                <div class="input-group mb-0">
+                                                                    <input type="date" class="form-control" formControlName="incorporacion"/>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text" id="fecha_incorporacion"><i class="ft-calendar"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-12 col-md-3">
+                                                            <div class="controls">
+                                                                <label for="url-sistema">Url del Sistema
+                                                                    <sup>*</sup></label>
+                                                                <input type="text" id="url-sistema" class="form-control" placeholder="Name" formControlName="url"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                                                    <button class="btn btn-secondary mb-2 mb-sm-0 mr-sm-2" [routerLink]="['/corporativos']">Regresar</button>
+                                                    <button type="submit" class="btn btn-primary"> {{ isDisabledForm ? "Editar" : "Guardar Cambios" }} </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- Account form ends -->
+                                    </div>
+                                    <!-- Account content ends -->
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="2">
+                                <a ngbNavLink class="nav-link d-flex align-items-center">
+                                    <i class="mr-1 ft-users"></i>
+                                    <span class="d-none d-sm-block">Contactos</span>
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <!-- Information content starts -->
+                                    <div class="mt-2">
+                                        <div class="media d-flex align-items-center pb-0">
+                                            <img [src]="corporativoDetalle.logo" alt="user edit avatar" class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64"/>
+                                            <h4 class="m-0"> {{ corporativoDetalle.corto }}</h4>
+                                        </div>
+                                        <hr class="mb-2" />
+                                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true" [rows]="contacts" [rowHeight]="'auto'" [reorderable]="true">
+                                            <ngx-datatable-column name="NOMBRE" prop="nombre" headerClass="text-center" [width]="100" cellClass="d-flex align-items-center justify-content-center"></ngx-datatable-column>
+                                            <ngx-datatable-column name="PUESTO" prop="puesto" headerClass="text-center" [width]="120" cellClass="d-flex align-items-center justify-content-center"></ngx-datatable-column>
+                                            <ngx-datatable-column name="TELÉFONO" prop="telefono" headerClass="text-center" [width]="80" cellClass="d-flex align-items-center justify-content-center"></ngx-datatable-column>
+                                            <ngx-datatable-column name="CELULAR" prop="celular" headerClass="text-center" [width]="80" cellClass="d-flex align-items-center justify-content-center"></ngx-datatable-column>
+                                            <ngx-datatable-column name="EMAIL" prop="email" headerClass="text-center" [width]="100" cellClass="d-flex align-items-center justify-content-center"></ngx-datatable-column>
+                                            <ngx-datatable-column name="OBSERVACIONES" prop="observaciones" headerClass="text-center" [width]="100" cellClass="d-flex align-items-center justify-content-center"></ngx-datatable-column>
+                                            <ngx-datatable-column name="ACCIONES" prop="acciones" headerClass="text-center" [width]="70" cellClass="d-flex align-items-center justify-content-center">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <button class="mr-2 btn btn-sm btn-outline-warning"
+                                                        (click)="setFormContactData(row.id)">
+                                                        <span><i class="ft-edit-2"></i></span>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" (click)="onDeleteContacto(row.id)">
+                                                        <span><i class="ft-trash"></i></span>
+                                                    </button>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                        </ngx-datatable>
+                                        <!-- Information form starts -->
+                                        <hr />
+                                        <form novalidate>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <form [formGroup]="contactsForm" (ngSubmit)="onSubmitContact()">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-3">
+                                                                <div class="controls">
+                                                                    <label for="nombre_contacto">Nombre</label>
+                                                                    <input type="text" id="nombre_contacto" class="form-control" placeholder="" formControlName="nombre"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <div class="controls">
+                                                                    <label for="puesto_contacto">Puesto</label>
+                                                                    <input type="text" id="puesto_contacto" class="form-control" placeholder="" formControlName="puesto"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <div class="controls">
+                                                                    <label for="telefono_contacto">Teléfono</label>
+                                                                    <input type="tel" id="telefono_contacto" class="form-control" placeholder="" formControlName="telefono"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <div class="controls">
+                                                                    <label for="celular_contacto">Celular</label>
+                                                                    <input type="tel" id="celular_contacto" class="form-control" placeholder="" formControlName="celular"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-3">
+                                                                <div class="controls">
+                                                                    <label for="email_contacto">Email</label>
+                                                                    <input type="email" id="email_contacto" class="form-control" placeholder="" formControlName="email"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <div class="controls">
+                                                                    <label for="comentarios_contacto">OBSERVACIONES</label>
+                                                                    <textarea id="comentarios_contacto" class="form-control" placeholder="" formControlName="comentarios"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-3 d-flex justify-content-end align-items-end">
+                                                                <button type="submit" class="btn btn-block btn-secondary">
+                                                                    {{ hasEdited ? "Actualizar Contacto" : "Agregar Contacto" }}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- Information form ends -->
+                                    </div>
+                                    <!-- Information content ends -->
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div [ngbNavOutlet]="nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
